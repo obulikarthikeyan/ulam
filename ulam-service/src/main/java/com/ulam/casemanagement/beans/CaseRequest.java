@@ -1,23 +1,23 @@
 package com.ulam.casemanagement.beans;
 
-import com.ulam.casemanagement.data.User;
+import com.ulam.casemanagement.data.Case;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.time.Instant;
 
 @Data
-public class UserRequest {
+public class CaseRequest {
 
     private String firstName;
     private String lastName;
     private String emailId;
     private Long phoneNumber;
-    private Boolean isActive;
+    private String problemSummary;
     private Long timeCreated;
     private Long timeUpdated;
 
-    private UserRequest() {
+    private CaseRequest() {
     }
 
     public static class Builder {
@@ -25,7 +25,7 @@ public class UserRequest {
         private String lastName;
         private String emailId;
         private Long phoneNumber;
-        private Boolean isActive = Boolean.TRUE;
+        private String problemSummary;
         private Long timeCreated = Instant.now().getEpochSecond();
         private Long timeUpdated = Instant.now().getEpochSecond();
 
@@ -49,8 +49,8 @@ public class UserRequest {
             return this;
         }
 
-        public Builder isActive(Boolean isActive) {
-            this.isActive = isActive;
+        public Builder problemSummary(String problemSummary) {
+            this.problemSummary = problemSummary;
             return this;
         }
 
@@ -59,16 +59,16 @@ public class UserRequest {
             return this;
         }
 
-        public UserRequest build() {
-            UserRequest userRequest = new UserRequest();
-            userRequest.firstName = this.firstName;
-            userRequest.lastName = this.lastName;
-            userRequest.emailId = this.emailId;
-            userRequest.phoneNumber = this.phoneNumber;
-            userRequest.isActive = this.isActive;
-            userRequest.timeCreated = this.timeCreated;
-            userRequest.timeUpdated = this.timeUpdated;
-            return userRequest;
+        public CaseRequest build() {
+            CaseRequest caseRequest = new CaseRequest();
+            caseRequest.firstName = this.firstName;
+            caseRequest.lastName = this.lastName;
+            caseRequest.emailId = this.emailId;
+            caseRequest.phoneNumber = this.phoneNumber;
+            caseRequest.problemSummary = this.problemSummary;
+            caseRequest.timeCreated = this.timeCreated;
+            caseRequest.timeUpdated = this.timeUpdated;
+            return caseRequest;
         }
 
         public String getFirstName() {
@@ -87,10 +87,6 @@ public class UserRequest {
             return phoneNumber;
         }
 
-        public Boolean getActive() {
-            return isActive;
-        }
-
         public Long getTimeCreated() {
             return timeCreated;
         }
@@ -98,11 +94,15 @@ public class UserRequest {
         public Long getTimeUpdated() {
             return timeUpdated;
         }
+
+        public String getProblemSummary() {
+            return problemSummary;
+        }
     }
 
-    public User toUserData() {
-        User user = new User();
-        BeanUtils.copyProperties(this, user);
-        return user;
+    public Case toUserData() {
+        Case aCase = new Case();
+        BeanUtils.copyProperties(this, aCase);
+        return aCase;
     }
 }
